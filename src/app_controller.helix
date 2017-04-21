@@ -1,0 +1,33 @@
+import "mono" library
+
+class app_controller <- mono::IApplication
+  timer: mono::Timer
+
+  function main_loop
+  function reset
+
+  function app_controller -> app_controller
+
+  function monoWakeFromReset
+  function monoWillGotoSleep
+  function monoWakeFromSleep
+
+implement app_controller
+  function app_controller
+    timer(1)
+
+  function main_loop
+    printf("hello")
+
+  function reset
+    timer.setCallback(this, &app_controller::main_loop)
+    timer.Start()
+
+  function monoWakeFromReset
+    reset()
+
+  function monoWillGotoSleep
+    timer.Stop()
+
+  function monoWakeFromSleep
+    reset()
