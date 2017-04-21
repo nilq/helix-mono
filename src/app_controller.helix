@@ -1,33 +1,28 @@
-import "mono" library
+import "mono.h" library
 
-class app_controller <- mono::IApplication
-  timer: mono::Timer
+use mono::geo
+
+class AppController <- mono::IApplication
+  label: mono::ui::TextLabelView
 
   function main_loop
   function reset
 
-  function app_controller -> app_controller
+  function AppController -> AppController
 
   function monoWakeFromReset
   function monoWillGotoSleep
   function monoWakeFromSleep
 
-implement app_controller
-  function app_controller
-    timer(1)
-
-  function main_loop
-    printf("hello")
-
-  function reset
-    timer.setCallback(this, &app_controller::main_loop)
-    timer.Start()
+implement AppController
+  function AppController -> AppController
+    label = mono::ui::TextLabelView(mono::geo::Rect(0, 100, 100, 100), "hello helix")
 
   function monoWakeFromReset
-    reset()
+    label.show()
 
   function monoWillGotoSleep
-    timer.Stop()
+    label.hide()
 
   function monoWakeFromSleep
-    reset()
+    label.show()
